@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bank Management System - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans scroll-smooth">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-gray-900 shadow-lg flex justify-between items-center px-8 py-4">
+    <h1 class="text-2xl font-bold text-cyan-400 drop-shadow-md cursor-default select-none">
+      Bank Dhaka Bangladesh PLC
+    </h1>
+    <ul class="flex gap-8 text-white font-semibold text-lg">
+      <li><a href="#about" class="hover:text-cyan-400 transition">About</a></li>
+      <li><a href="#contact" class="hover:text-cyan-400 transition">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Headline -->
+  <header class="text-center py-8 px-4 max-w-4xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-cyan-400 drop-shadow-lg mb-3 select-none">
+      Welcome to Your Dashboard
+    </h2>
+    <p class="text-gray-300 text-lg max-w-xl mx-auto leading-relaxed">
+      Manage your bank account easily. Deposit, withdraw, and transfer money securely with real-time updates and detailed transaction statements.
+    </p>
+  </header>
+
+  <!-- Main Content & Statement Sidebar -->
+  <div class="min-h-screen flex flex-col lg:flex-row items-start justify-center gap-8 px-6 pb-16 max-w-6xl mx-auto">
+
+    <!-- Main panel -->
+    <main class="bg-gray-900 rounded-2xl shadow-2xl p-8 w-full max-w-3xl hover:shadow-sky-400 transition-transform hover:-translate-y-1">
+      <h2 class="text-3xl font-bold text-cyan-400 mb-4 text-center drop-shadow">Welcome, <span id="userName"></span></h2>
+      <div class="text-lg mb-4 space-y-2">
+        <p>Account No: <span class="text-cyan-400" id="userAcc"></span></p>
+        <p>Mobile: <span class="text-cyan-400" id="userMobile"></span></p>
+        <p>Balance: <span class="text-cyan-400" id="userBalance">0</span> ৳</p>
+      </div>
+
+      <hr class="my-6 border-cyan-700" />
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <section class="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-sky-400 transition-transform hover:scale-105">
+          <h3 class="text-xl text-cyan-300 font-semibold mb-4">Deposit / Withdraw</h3>
+          <input
+            type="number"
+            id="amount"
+            placeholder="Amount"
+            class="w-full mb-3 px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-cyan-400"
+          />
+          <div class="flex gap-4">
+            <button onclick="deposit()" class="flex-1 bg-cyan-400 text-black font-bold py-2 rounded hover:bg-white transition">Deposit</button>
+            <button onclick="withdraw()" class="flex-1 bg-red-500 text-white font-bold py-2 rounded hover:bg-red-300 transition">Withdraw</button>
+          </div>
+        </section>
+
+        <section class="bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-sky-400 transition-transform hover:scale-105">
+          <h3 class="text-xl text-cyan-300 font-semibold mb-4">Transfer Money</h3>
+          <input
+            type="text"
+            id="targetAcc"
+            placeholder="Target Account No"
+            class="w-full mb-3 px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-cyan-400"
+          />
+          <input
+            type="number"
+            id="transferAmount"
+            placeholder="Amount"
+            class="w-full mb-4 px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-cyan-400"
+          />
+          <button onclick="transfer()" class="w-full bg-cyan-400 text-black font-bold py-2 rounded hover:bg-white transition">Transfer</button>
+        </section>
+      </div>
+
+      <div class="mt-10 text-center">
+        <button onclick="logout()" class="bg-gray-700 hover:bg-gray-500 text-white py-2 px-6 rounded shadow-md transition">Logout</button>
+      </div>
+    </main>
+
+    <!-- Statement Sidebar -->
+    <aside
+      class="bg-gray-900 p-6 rounded-xl shadow-xl w-full max-w-xs h-[600px] overflow-y-auto hover:shadow-sky-400 transition-transform hover:scale-[1.02]"
+    >
+      <h3 class="text-xl text-cyan-400 font-bold mb-6 text-center drop-shadow">Transaction Statement</h3>
+      <ul id="statementList" class="space-y-3 text-sm">
+        <!-- statements inserted here -->
+      </ul>
+    </aside>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="bg-gray-900 mx-8 my-10 p-8 rounded-xl shadow-xl max-w-4xl mx-auto">
+    <h1 class="text-4xl text-cyan-400 mb-6 font-bold drop-shadow-md">About Our Bank</h1>
+    <p class="text-justify leading-relaxed text-lg text-gray-300">
+      Our Bank Management System is a secure and user-friendly platform designed to streamline all your banking needs. Whether you're depositing funds, withdrawing cash, or transferring money to another account, our system ensures fast, accurate, and reliable services. The goal is to bring traditional banking into the digital age with ease of access, transparency, and security. We believe in empowering our customers through innovation and building trust with a system that evolves with your needs. We are proud to serve thousands of customers every day with a commitment to excellence and reliability. As a part of our digital transformation, we’ve made this platform not just efficient, but enjoyable to use. Join us in the journey toward smarter banking.
+    </p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-gray-900 mx-8 my-10 p-8 rounded-xl shadow-xl max-w-4xl mx-auto">
+    <h2 class="text-3xl text-cyan-400 mb-6 font-bold drop-shadow-md">Contact Us</h2>
+    <ul class="text-gray-300 space-y-2 text-lg">
+      <li><strong>Email:</strong> support@bankdhaka.com</li>
+      <li><strong>Website:</strong> www.bankdhaka.com</li>
+      <li><strong>Telephone:</strong> +880-2-123456</li>
+      <li><strong>Mobile:</strong> +880-1700-000000</li>
+      <li><strong>Fax:</strong> +880-2-123457</li>
+    </ul>
+  </section>
+
+  <footer class="text-center text-gray-400 text-sm py-4 border-t border-gray-800">
+    &copy; 2025 | Developed by Rafsan, Department of CSE, SMUCT.
+  </footer>
+
+<script>
+  // Fetch current user and users list from localStorage
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  let users = JSON.parse(localStorage.getItem("users"));
+
+  // Display user info in dashboard
+  document.getElementById("userName").innerText = user.name;
+  document.getElementById("userAcc").innerText = user.acc;
+  document.getElementById("userMobile").innerText = user.mobile;
+  document.getElementById("userBalance").innerText = user.balance;
+
+  // Update users in localStorage & dashboard balance display
+  function updateUser(userData) {
+    users = users.map((u) => (u.acc === userData.acc ? userData : u));
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(userData));
+    document.getElementById("userBalance").innerText = userData.balance;
+  }
+
+  // Add statement line with timestamp to sidebar
+  function addStatement(message) {
+    const list = document.getElementById("statementList");
+    const li = document.createElement("li");
+    const now = new Date();
+    const timestamp = now.toLocaleString();
+    li.textContent = `${timestamp} - ${message}`;
+    list.prepend(li);
+  }
+
+  // Clear input fields after actions
+  function clearInputs() {
+    document.getElementById("amount").value = "";
+    document.getElementById("targetAcc").value = "";
+    document.getElementById("transferAmount").value = "";
+  }
+
+  // Deposit money
+  function deposit() {
+    let amount = parseFloat(document.getElementById("amount").value);
+    if (!isNaN(amount) && amount > 0) {
+      user.balance += amount;
+      updateUser(user);
+      addStatement(`Deposited ৳${amount}`);
+      clearInputs();
+    } else {
+      alert("Enter a valid deposit amount");
+    }
+  }
+
+  // Withdraw money
+  function withdraw() {
+    let amount = parseFloat(document.getElementById("amount").value);
+    if (!isNaN(amount) && amount > 0 && amount <= user.balance) {
+      user.balance -= amount;
+      updateUser(user);
+      addStatement(`Withdrew ৳${amount}`);
+      clearInputs();
+    } else {
+      alert("Insufficient balance or invalid amount");
+    }
+  }
+
+  // Transfer money to another account
+  function transfer() {
+    const targetAcc = document.getElementById("targetAcc").value.trim();
+    const amount = parseFloat(document.getElementById("transferAmount").value);
+
+    if (!targetAcc || isNaN(amount) || amount <= 0) {
+      alert("Please enter valid target account and amount");
+      return;
+    }
+
+    const targetUser = users.find((u) => u.acc === targetAcc);
+
+    if (targetUser && amount <= user.balance) {
+      user.balance -= amount;
+      targetUser.balance += amount;
+
+      // Update both users in users array
+      users = users.map((u) => (u.acc === user.acc ? user : u));
+      users = users.map((u) => (u.acc === targetUser.acc ? targetUser : u));
+
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      addStatement(`Transferred ৳${amount} to ${targetAcc}`);
+      clearInputs();
+    } else {
+      alert("Invalid account or insufficient balance");
+    }
+  }
+
+  // Logout user and redirect to login page
+  function logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "index.html";
+  }
+</script>
+</body>
+</html>

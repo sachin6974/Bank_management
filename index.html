@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bank Dhaka Bangladesh PLC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans scroll-smooth motion-safe:transition-all motion-safe:duration-500">
+
+  <!-- Navbar -->
+  <nav class="sticky top-0 z-50 bg-gray-900 shadow-lg flex justify-between items-center px-10 py-4">
+    <h1 class="text-2xl font-bold text-cyan-400 drop-shadow-md">
+     Bank Dhaka Bangladesh PLC
+    </h1>
+    <ul class="flex gap-6 text-white font-semibold">
+      <li><a href="#about" class="hover:text-cyan-400 transition">About</a></li>
+      <li><a href="#contact" class="hover:text-cyan-400 transition">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="flex flex-col lg:flex-row items-center justify-center gap-10 px-8 py-10">
+    <!-- Left Image -->
+    <div class="w-full lg:w-[400px] flex justify-center transition-transform hover:scale-105 duration-300">
+      <img src="/asset/bank.jpg"
+        alt="Bank"
+        class="rounded-xl shadow-2xl w-full max-w-md"
+      />
+    </div>
+
+    <!-- Right Form -->
+    <div class="flex flex-col md:flex-row gap-10">
+      <!-- Login Form -->
+      <div class="bg-gray-900 p-6 rounded-xl shadow-xl w-[450px] hover:shadow-cyan-400 transition-transform hover:-translate-y-1">
+        <h2 class="text-cyan-400 text-center text-xl mb-4 font-bold">Login</h2>
+        <input
+          type="text"
+          id="loginAcc"
+          placeholder="Account No"
+          class="w-full mb-3 px-3 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400"
+        />
+        <input
+          type="text"
+          id="loginMobile"
+          placeholder="Mobile Number"
+          class="w-full mb-4 px-3 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400"
+        />
+        <button
+          onclick="login()"
+          class="w-full bg-cyan-400 text-black font-bold py-2 rounded hover:bg-white transition"
+        >
+          Login
+        </button>
+      </div>
+
+      <!-- Register Form -->
+      <div class="bg-gray-900 p-6 rounded-xl shadow-xl w-72 hover:shadow-cyan-400 transition-transform hover:-translate-y-1">
+        <h2 class="text-cyan-400 text-center text-xl mb-4 font-bold">Register</h2>
+        <input
+          type="text"
+          id="name"
+          placeholder="Name"
+          class="w-full mb-3 px-3 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400"
+        />
+        <input
+          type="text"
+          id="acc"
+          placeholder="Account No"
+          class="w-full mb-3 px-3 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400"
+        />
+        <input
+          type="text"
+          id="mobile"
+          placeholder="Mobile Number"
+          class="w-full mb-4 px-3 py-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-cyan-400"
+        />
+        <button
+          onclick="register()"
+          class="w-full bg-cyan-400 text-black font-bold py-2 rounded hover:bg-white transition"
+        >
+          Register
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About & Contact Section Side by Side -->
+  <div class="flex flex-col lg:flex-row gap-10 px-8 pb-10">
+    <!-- About Section -->
+    <section id="about" class="bg-gray-900 p-6 rounded-xl shadow-2xl hover:shadow-sky-400 transition-transform hover:-translate-y-1 w-full lg:w-1/2">
+      <h1 class="text-4xl text-cyan-400 mb-4 font-bold drop-shadow-md">About Our Bank</h1>
+      <p class="text-justify leading-relaxed text-xl">
+        Our Bank Management System is a secure and user-friendly platform designed to streamline all your banking needs. Whether you're depositing funds, withdrawing cash, or transferring money to another account, our system ensures fast, accurate, and reliable services. The goal is to bring traditional banking into the digital age with ease of access, transparency, and security. We believe in empowering our customers through innovation and building trust with a system that evolves with your needs. We are proud to serve thousands of customers every day with a commitment to excellence and reliability. As a part of our digital transformation, we’ve made this platform not just efficient, but enjoyable to use. Join us in the journey toward smarter banking.
+      </p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-900 p-6 rounded-xl shadow-2xl hover:shadow-sky-400 transition-transform hover:-translate-y-1 w-full lg:w-1/2">
+      <h2 class="text-4xl text-cyan-400 mb-4 font-bold drop-shadow-md">Contact Us</h2>
+      <p class="text-2xl">Email: support@bankdhaka.com</p>
+      <p class="text-2xl">Website: www.bankdhaka.com</p>
+      <p class="text-2xl">Telephone: +880-2-123456</p>
+      <p class="text-2xl">Mobile: +880-1700-000000</p>
+      <p class="text-2xl">Fax: +880-2-123457</p>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center text-gray-400 text-sm py-4 border-t border-gray-800">
+    &copy; 2025 | Developed by Rafsan, Department of CSE, SMUCT.
+  </footer>
+
+  <script>
+    // Retrieve existing users or initialize empty array
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Register function
+    function register() {
+      const name = document.getElementById('name').value.trim();
+      const acc = document.getElementById('acc').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+
+      if (!name || !acc || !mobile) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      // Check if account number or mobile already exists
+      const accExists = users.some(u => u.acc === acc);
+      if (accExists) {
+        alert("Account number already registered!");
+        return;
+      }
+
+      const mobileExists = users.some(u => u.mobile === mobile);
+      if (mobileExists) {
+        alert("Mobile number already registered!");
+        return;
+      }
+
+      const user = {
+        name,
+        acc,
+        mobile,
+        balance: 0
+      };
+
+      users.push(user);
+      localStorage.setItem("users", JSON.stringify(users));
+
+      alert("Registration successful!");
+      // Clear inputs
+      document.getElementById('name').value = "";
+      document.getElementById('acc').value = "";
+      document.getElementById('mobile').value = "";
+    }
+
+    // Login function
+    function login() {
+      const acc = document.getElementById('loginAcc').value.trim();
+      const mobile = document.getElementById('loginMobile').value.trim();
+
+      if (!acc || !mobile) {
+        alert("Please enter both Account No and Mobile Number!");
+        return;
+      }
+
+      const user = users.find(u => u.acc === acc && u.mobile === mobile);
+
+      if (user) {
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid credentials!");
+      }
+    }
+  </script>
+</body>
+</html>
